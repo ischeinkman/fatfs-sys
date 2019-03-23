@@ -66,3 +66,18 @@ pub extern fn disk_write(pdrv: BYTE, buf: *const BYTE, sector: DWORD, count: UIN
 pub extern fn disk_ioctl(pdrv: BYTE, cmd: BYTE, buf: *mut libc::c_void) -> DRESULT {
     DISK_HANDLER.lock().unwrap().as_mut().unwrap().disk_ioctl(pdrv, cmd, buf)
 }
+/* Disk Status Bits (DSTATUS) */
+
+pub const STA_NOINIT : DSTATUS = 0x01; /* Drive not : DSTATUS = initialized*/
+pub const STA_NODISK : DSTATUS = 0x02; /* No medium in the : DSTATUS = drive*/
+pub const STA_PROTECT : DSTATUS = 0x04; /* Write : DSTATUS = protected*/
+
+
+/* Command code for disk_ioctrl fucntion */
+
+/* Generic command (Used by : DSTATUS = FatFs)*/
+pub const CTRL_SYNC : BYTE = 0; /* Complete pending write process (needed at FF_FS_READONLY == : DSTATUS = 0)*/
+pub const GET_SECTOR_COUNT : BYTE = 1; /* Get media size (needed at FF_USE_MKFS == : DSTATUS = 1)*/
+pub const GET_SECTOR_SIZE : BYTE = 2; /* Get sector size (needed at FF_MAX_SS != : DSTATUS = FF_MIN_SS)*/
+pub const GET_BLOCK_SIZE : BYTE = 3; /* Get erase block size (needed at FF_USE_MKFS == : DSTATUS = 1)*/
+pub const CTRL_TRIM : BYTE = 4; /* Inform device that the data on the block of sectors is no longer used (needed at FF_USE_TRIM == : DSTATUS = 1)*/
