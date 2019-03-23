@@ -5,7 +5,7 @@ use std::path::PathBuf;
 use std::fs::read_dir;
 
 fn main() {
-    if !cfg!(features="create-bindings") {
+    if !cfg!(feature="create-bindings") {
         return;
     }
     let mut build = cc::Build::new();
